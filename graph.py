@@ -21,7 +21,7 @@ def import_graph():
 
 	for channel in channel_dump["channels"]:
 		graph.add_edge(channel["source"], channel["destination"], satoshis=channel["satoshis"], base_fee_millisatoshi=channel["base_fee_millisatoshi"], fee_per_millionth=channel["fee_per_millionth"], delay=channel["delay"], short_channel_id=channel["short_channel_id"])
-	print (graph.edges())
+	#print (graph.edges())
 
 def base_fee_hist():
 	base_fee_list = []
@@ -37,6 +37,25 @@ def delay_hist():
 	plt.hist(delay_list)
 	plt.show()
 
+
+def get_paths():
+	'''
+	#all simple paths
+	print("all simple paths:\n")
+	for path in nx.all_simple_paths(graph, source='0315a5746114ab9f3e8f0a3f2f73153ef1e4a8fb58daa54fa97c9603dfab989a30', target='03d21e56a377f8db14a3e67f893c9e9301a6c3a79db276f8c98fe35b1c8c095ed9'):
+		print(path)
+	'''
+	#all shortest paths	
+	print("all shortest paths:\n")
+	for path in nx.all_shortest_paths(graph, source='0315a5746114ab9f3e8f0a3f2f73153ef1e4a8fb58daa54fa97c9603dfab989a30', target='03d21e56a377f8db14a3e67f893c9e9301a6c3a79db276f8c98fe35b1c8c095ed9'):
+		print(path)
+	
+	#shortest path
+	print("shortest path:\n")
+	for path in nx.shortest_path(graph, source='0315a5746114ab9f3e8f0a3f2f73153ef1e4a8fb58daa54fa97c9603dfab989a30', target='03d21e56a377f8db14a3e67f893c9e9301a6c3a79db276f8c98fe35b1c8c095ed9'):
+		print(path)
+
 import_graph()
 base_fee_hist()
 delay_hist()
+get_paths()
